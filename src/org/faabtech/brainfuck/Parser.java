@@ -59,14 +59,7 @@ public class Parser {
 	 * 			  The file to parse.
 	 * @throws Exception 
 	 */
-	public void parse(File file) throws Exception {
-		if (!file.exists()) {
-			throw new Exception("File " + file.getPath() + " doesn't exists.");
-		} 
-		if (file.isDirectory()) {
-			throw new Exception("File " + file.getPath() + " is directory.");
-		}
-		
+	public void parse(File file) throws Exception {	
 		fileReader = new BufferedReader(new FileReader(file));
 		String content = "";
 		String line = "";
