@@ -1,8 +1,8 @@
 Brainfuck
 ================
-This is an interpreter and parser for the real `Brainfuck` language.
+This is an interpreter for the real `Brainfuck` language.
 
 Credits
 -------------
 `Brainfuck` is created by Urban Müller.
-Interpreter and parser made by Fabian M.
+Interpreter made by Fabian M.
