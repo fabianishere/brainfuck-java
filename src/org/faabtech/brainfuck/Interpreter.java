@@ -40,7 +40,7 @@ public class Interpreter {
 
 
 	/**
-	 * Constructs a new Parser.
+	 * Constructs a new Interpreter.
 	 * 
 	 * @param cells
 	 *            The amount of memory cells.
