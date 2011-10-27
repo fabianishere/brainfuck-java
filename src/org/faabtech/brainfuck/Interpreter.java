@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 
 /**
- * This interpreter interprets the Brainfuck code.
+ * The {@link Interpreter} class interpret the given <code>BrainFuck</code> code.
  * 
  * @author Fabian M.
  */
@@ -14,30 +14,45 @@ public class Interpreter {
 
 
 	/**
-	 * The data.
+	 * The memory thats available for this brainfuck program.
 	 */
 	private byte[] data;
 
 	/**
-	 * The data pointer.
+	 * The data pointer that points to the current index in the {@link Interpreter#data} memory array.
 	 */
 	private int dataPointer = 0;
 
 	/**
-	 * The character pointer.
+	 * The character pointer that points to the current index of the character array
+	 * 	of value of its file or string.
 	 */
 	private int charPointer = 0;
 	
 	/**
-	 * BufferedReader to read from file.
+	 * The {@link Interpreter#fileReader} allows use to read from a file if one is specified.
 	 */
 	private BufferedReader fileReader;
 	
 	/**
-	 * InputStreamReader to read from console.
+	 * The {@link Interpreter#consoleReader} allows us to read from the console for the '.' keyword.
 	 */
 	private InputStreamReader consoleReader;
-
+	
+	/**
+	 * The {@link Interpreter#outWriter} allows us to write to the console.
+	 */
+	private OutputStream outWriter;
+	
+	/**
+	 * The current line we are at.
+	 */
+	private int lineCount = 0;
+	
+	/**
+	 * The current collumn we are at.
+	 */
+	private int collumnCount = 0;
 
 	/**
 	 * Constructs a new Interpreter.
@@ -46,11 +61,49 @@ public class Interpreter {
 	 *            The amount of memory cells.
 	 */
 	public Interpreter(int cells) {
+		initate();
+		outWriter = new PrintStream(System.out);
+		consoleReader = new InputStreamReader(System.in);
+	}
+	
+	/**
+	 * Constructs a new Interpreter.
+	 * 
+	 * @param cells
+	 *            The amount of memory cells.
+	 * @param out The outputstream of this program.
+	 */
+	public Interpreter(int cells, OutputStream out) {
+		initate();
+		outWriter = out;
+		consoleReader = new InputStreamReader(System.in);
+	}
+	
+	/**
+	 * Constructs a new Interpreter.
+	 * 
+	 * @param cells
+	 *            The amount of memory cells.
+	 * @param out The printstream of this program.
+	 * @param in The outputstream of this program.
+	 */
+	public Interpreter(int cells, OutputStream out, InputStream in) {
+		initate();
+		outWriter = out;
+		consoleReader = new InputStreamReader(in);
+	}
+	
+	/**
+	 * Initiate this instance.
+	 */
+	public void initate() {
 		data = new byte[cells];
 		dataPointer = 0;
 		charPointer = 0;
-		consoleReader = new InputStreamReader(System.in);
+		lineCount = 0;
+		collumnCount = 0;
 	}
+	
 	
 	/**
 	 * Interprets the given file.
@@ -65,12 +118,14 @@ public class Interpreter {
 		String line = "";
 		while((line = fileReader.readLine()) != null) {
 			content += line;
+			lineCount++;
+			
 		}
 		
 		interpret(content);
 	}
 
-	
+
 	/**
 	 * Interprets the given string.
 	 * 
@@ -79,11 +134,9 @@ public class Interpreter {
 	 * @throws Exception
 	 */
 	public void interpret(String str) throws Exception {
-		char[] chars = str.toCharArray();
-
-		for (; charPointer < chars.length; charPointer++) {
-			interpret(chars[charPointer], chars);
-		}
+		for (; charPointer < str.length(); charPointer++) 
+			interpret(str.chatAt(charPointer), chars);
+		initate();
 	}
 
 	/**
@@ -99,7 +152,8 @@ public class Interpreter {
 			// increment the data pointer (to point to the next cell to the
 			// right).
 			if ((dataPointer + 1) > data.length) {
-				throw new Exception("Data pointer (" + dataPointer
+				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+						+ "data pointer (" + dataPointer
 						+ ") on postion " + charPointer + "" + " out of range.");
 			}
 			dataPointer++;
@@ -108,7 +162,8 @@ public class Interpreter {
 			// decrement the data pointer (to point to the next cell to the
 			// left).
 			if ((dataPointer - 1) < 0) {
-				throw new Exception("Data pointer (" + dataPointer
+				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+						+ "data pointer (" + dataPointer
 						+ ") on postion " + charPointer + " " + "negative.");
 			}
 			dataPointer--;
@@ -117,24 +172,26 @@ public class Interpreter {
 			
 			// increment (increase by one) the byte at the data pointer.
 			if ((((int) data[dataPointer]) + 1) > Integer.MAX_VALUE) {
-				throw new Exception("Byte value at data pointer ("
+				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+						+ "byte value at data pointer ("
 						+ dataPointer + ") " + " on postion " + charPointer
 						+ " higher than byte max value.");
 			}
 			data[dataPointer]++;
 			break;
 		case '-':
-			
 			// decrement (decrease by one) the byte at the data pointer.
 			/*if ((data[dataPointer] - 1) < 0) {
-				throw new Exception("At data pointer " + dataPointer
+				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+						+ "at data pointer " + dataPointer
 						+ " on postion " + charPointer
 						+ ": Value can not be lower than zero.");
 			}*/
 			data[dataPointer]--;
 			break;
 		case '.':
-			System.out.print((char) data[dataPointer]);
+			// Output the byte at the current index in a character.
+			outWriter.print((char) data[dataPointer]);
 			break;
 		case ',':
 			// accept one byte of input, storing its value in the byte at the data pointer.
@@ -164,6 +221,6 @@ public class Interpreter {
 			charPointer--;
 			break;
 		}
-
+		collumnCount++;
 	}
 }
