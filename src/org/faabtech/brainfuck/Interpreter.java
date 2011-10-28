@@ -64,9 +64,7 @@ public class Interpreter {
 	 *            The amount of memory cells.
 	 */
 	public Interpreter(int cells) {
-		initate(cells);
-		outWriter = new PrintStream(System.out);
-		consoleReader = new InputStreamReader(System.in);
+		this(cells, new PrintStream(System.out), System.in);
 	}
 	
 	/**
@@ -77,9 +75,7 @@ public class Interpreter {
 	 * @param out The outputstream of this program.
 	 */
 	public Interpreter(int cells, OutputStream out) {
-		initate(cells);
-		outWriter = out;
-		consoleReader = new InputStreamReader(System.in);
+		this(cells, out, System.in);
 	}
 	
 	/**
