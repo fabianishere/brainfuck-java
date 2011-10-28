@@ -61,7 +61,7 @@ public class Interpreter {
 	 *            The amount of memory cells.
 	 */
 	public Interpreter(int cells) {
-		initate();
+		initate(cells);
 		outWriter = new PrintStream(System.out);
 		consoleReader = new InputStreamReader(System.in);
 	}
@@ -74,7 +74,7 @@ public class Interpreter {
 	 * @param out The outputstream of this program.
 	 */
 	public Interpreter(int cells, OutputStream out) {
-		initate();
+		initate(cells);
 		outWriter = out;
 		consoleReader = new InputStreamReader(System.in);
 	}
@@ -88,7 +88,7 @@ public class Interpreter {
 	 * @param in The outputstream of this program.
 	 */
 	public Interpreter(int cells, OutputStream out, InputStream in) {
-		initate();
+		initate(cells);
 		outWriter = out;
 		consoleReader = new InputStreamReader(in);
 	}
@@ -96,7 +96,7 @@ public class Interpreter {
 	/**
 	 * Initiate this instance.
 	 */
-	public void initate() {
+	public void initate(int cells) {
 		data = new byte[cells];
 		dataPointer = 0;
 		charPointer = 0;
@@ -136,7 +136,7 @@ public class Interpreter {
 	public void interpret(String str) throws Exception {
 		for (; charPointer < str.length(); charPointer++) 
 			interpret(str.chatAt(charPointer), chars);
-		initate();
+		initate(cells);
 	}
 
 	/**
