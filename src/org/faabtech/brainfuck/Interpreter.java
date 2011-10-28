@@ -95,6 +95,9 @@ public class Interpreter {
 	
 	/**
 	 * Initiate this instance.
+	 * 
+	 * @param cells 
+	 * 	     The amount of memory cells.
 	 */
 	public void initate(int cells) {
 		data = new byte[cells];
