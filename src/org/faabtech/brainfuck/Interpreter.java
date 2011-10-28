@@ -62,7 +62,7 @@ public class Interpreter {
 	 * 
 	 * @param cells
 	 *            The amount of memory cells.
-	 */
+	 */b
 	public Interpreter(int cells) {
 		this(cells, new PrintStream(System.out), System.in);
 	}
@@ -79,7 +79,7 @@ public class Interpreter {
 	}
 	
 	/**
-	 * Constructs a new Interpreter.
+	 * Constructs a new Interpreter.b
 	 * 
 	 * @param cells
 	 *            The amount of memory cells.
@@ -193,7 +193,7 @@ public class Interpreter {
 			break;
 		case '.':
 			// Output the byte at the current index in a character.
-			outWriter.print((char) data[dataPointer]);
+			outWriter.write((char) data[dataPointer]);
 			break;
 		case ',':
 			// accept one byte of input, storing its value in the byte at the data pointer.
