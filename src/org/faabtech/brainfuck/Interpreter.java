@@ -154,7 +154,7 @@ public class Interpreter {
 			// increment the data pointer (to point to the next cell to the
 			// right).
 			if ((dataPointer + 1) > data.length) {
-				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "data pointer (" + dataPointer
 						+ ") on postion " + charPointer + "" + " out of range.");
 			}
@@ -164,7 +164,7 @@ public class Interpreter {
 			// decrement the data pointer (to point to the next cell to the
 			// left).
 			if ((dataPointer - 1) < 0) {
-				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "data pointer (" + dataPointer
 						+ ") on postion " + charPointer + " " + "negative.");
 			}
@@ -174,7 +174,7 @@ public class Interpreter {
 			
 			// increment (increase by one) the byte at the data pointer.
 			if ((((int) data[dataPointer]) + 1) > Integer.MAX_VALUE) {
-				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "byte value at data pointer ("
 						+ dataPointer + ") " + " on postion " + charPointer
 						+ " higher than byte max value.");
@@ -184,7 +184,7 @@ public class Interpreter {
 		case '-':
 			// decrement (decrease by one) the byte at the data pointer.
 			/*if ((data[dataPointer] - 1) < 0) {
-				throw new Exception("Error on line " + lineCount + ", collumn " + collumnCount + ":" 
+				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "at data pointer " + dataPointer
 						+ " on postion " + charPointer
 						+ ": Value can not be lower than zero.");
