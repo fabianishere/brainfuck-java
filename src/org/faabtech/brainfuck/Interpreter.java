@@ -53,9 +53,9 @@ public class Interpreter {
 	private int lineCount = 0;
 	
 	/**
-	 * The current collumn we are at.
+	 * The current column we are at.
 	 */
-	private int collumnCount = 0;
+	private int columnCount = 0;
 
 	/**
 	 * Constructs a new Interpreter.
@@ -103,7 +103,7 @@ public class Interpreter {
 		dataPointer = 0;
 		charPointer = 0;
 		lineCount = 0;
-		collumnCount = 0;
+		columnCount = 0;
 	}
 	
 	
@@ -223,6 +223,6 @@ public class Interpreter {
 			charPointer--;
 			break;
 		}
-		collumnCount++;
+		columnCount++;
 	}
 }
