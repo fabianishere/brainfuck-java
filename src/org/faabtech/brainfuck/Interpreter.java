@@ -137,8 +137,8 @@ public class Interpreter {
 	 */
 	public void interpret(String str) throws Exception {
 		for (; charPointer < str.length(); charPointer++) 
-			interpret(str.chatAt(charPointer), chars);
-		initate(cells);
+			interpret(str.charAt(charPointer), str.toCharArray());
+		initate(data.length);
 	}
 
 	/**
