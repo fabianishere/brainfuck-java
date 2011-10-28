@@ -38,7 +38,7 @@ public class Interpreter {
 	private BufferedReader fileReader;
 	
 	/**
-	 * The {@link Interpreter#consoleReader} allows us to read from the console for the '.' keyword.
+	 * The {@link Interpreter#consoleReader} allows us to read from the console for the ',' keyword.
 	 */
 	private InputStreamReader consoleReader;
 	
