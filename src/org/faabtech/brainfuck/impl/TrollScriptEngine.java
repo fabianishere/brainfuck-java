@@ -150,9 +150,9 @@ public class TrollScriptEngine extends BrainfuckEngine {
 					while (level > 0) {	
 						tokenPointer++;
 						
-						if (tokens.get(tokenPointer).equals(Token.BRACKET_LEFT)) 
+						if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_LEFT)) 
 							level++;
-						else if (tokens.get(tokenPointer).equals(Token.BRACKET_RIGHT))
+						else if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_RIGHT))
 							level--;
 					}
 				}
@@ -163,9 +163,9 @@ public class TrollScriptEngine extends BrainfuckEngine {
 					while (level > 0) {
 						tokenPointer--;
 						
-						if (tokens.get(tokenPointer).equals(Token.BRACKET_LEFT)) 
+						if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_LEFT)) 
 							level--;
-						else if (tokens.get(tokenPointer).equals(Token.BRACKET_RIGHT))
+						else if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_RIGHT))
 							level++;
 					}
 				}
