@@ -6,64 +6,61 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.faabtech.brainfuck.BrainfuckEngine;
+import org.faabtech.brainfuck.impl.TrollScriptEngine.Token;
 
 /**
- * The {@link TrollScriptEngine} is an implementation for the
+ * The {@link OokEngine} is an implementation for the
  * <code>brainfuck<code> dialect
- * 	<code>TrollScript</code>.
+ * 	<code>Ook!</code>.
  * 
  * @author Fabian M.
  */
-public class TrollScriptEngine extends BrainfuckEngine {
+public class OokEngine extends TrollScriptEngine {
 
 	/**
 	 * The default length of a token.
 	 */
-	protected int defaultTokenLength = 3;
+	protected int defaultTokenLength = 9;
 	/**
-	 * The {@link Token} class contains tokens in <code>TrollScript</code>.
+	 * The {@link Token} class contains tokens in <code>Ook!</code>.
 	 * 
 	 * @author Fabian M.
 	 */
 	protected static class Token {
-
-		public final static String START = "tro";
-		public final static String NEXT = "ooo";
-		public final static String PREVIOUS = "ool";
-		public final static String PLUS = "olo";
-		public final static String MINUS = "oll";
-		public final static String OUTPUT = "loo";
-		public final static String INPUT = "lol";
-		public final static String BRACKET_LEFT = "llo";
-		public final static String BRACKET_RIGHT = "lll";
-		public final static String END = "ll.";
+		public final static String NEXT = "Ook. Ook?";
+		public final static String PREVIOUS = "Ook? Ook.";
+		public final static String PLUS = "Ook. Ook.";
+		public final static String MINUS = "Ook! Ook!";
+		public final static String OUTPUT = "Ook! Ook.";
+		public final static String INPUT = "Ook. Ook!";
+		public final static String BRACKET_LEFT = "Ook! Ook?";
+		public final static String BRACKET_RIGHT = "Ook? Ook!";
 	}
-
+	
 	/**
-	 * Constructs a new {@link TrollScriptEngine} instance.
+	 * Constructs a new {@link OokEngine} instance.
 	 * 
 	 * @param cells
 	 *            The amount of memory cells.
 	 */
-	public TrollScriptEngine(int cells) {
+	public OokEngine(int cells) {
 		this(cells, new PrintStream(System.out), System.in);
 	}
 
 	/**
-	 * Constructs a new {@link TrollScriptEngine} instance.
+	 * Constructs a new {@link OokEngine} instance.
 	 * 
 	 * @param cells
 	 *            The amount of memory cells.
 	 * @param out
 	 *            The outputstream of this program.
 	 */
-	public TrollScriptEngine(int cells, OutputStream out) {
+	public OokEngine(int cells, OutputStream out) {
 		this(cells, out, System.in);
 	}
 
 	/**
-	 * Constructs a new {@link TrollScriptEngine} instance.
+	 * Constructs a new {@link OokEngine} instance.
 	 * 
 	 * @param cells
 	 *            The amount of memory cells.
@@ -72,10 +69,10 @@ public class TrollScriptEngine extends BrainfuckEngine {
 	 * @param in
 	 *            The outputstream of this program.
 	 */
-	public TrollScriptEngine(int cells, OutputStream out, InputStream in) {
+	public OokEngine(int cells, OutputStream out, InputStream in) {
 		super(cells, out, in);
 	}
-
+	
 	/**
 	 * Interprets the given string.
 	 * 
@@ -85,8 +82,6 @@ public class TrollScriptEngine extends BrainfuckEngine {
 	 */
 	@Override
 	public void interpret(String str) throws Exception {
-		// Is this program already started?
-		boolean started = false;
 		// List with tokens.defaultTokenLenght
 		List<String> tokens = new ArrayList<String>();
 		// It fine that all TrollScript tokens are 3 characters long :)
@@ -101,12 +96,7 @@ public class TrollScriptEngine extends BrainfuckEngine {
 						+ (str.length() - charPointer));
 			// Is it a token?
 			if (isValidToken(token)) {
-				if (token.equalsIgnoreCase(Token.START))
-					started = true;
-				else if (token.equalsIgnoreCase(Token.END))
-					break;
-				else if (started)
-					tokens.add(token);
+				tokens.add(token);
 				charPointer += defaultTokenLength;
 			} else if (charPointer + defaultTokenLength > str.length()) {
 				charPointer += (str.length() - charPointer);
@@ -118,7 +108,6 @@ public class TrollScriptEngine extends BrainfuckEngine {
 		// Loop through all tokens.
 		for (int tokenPointer = 0; tokenPointer < tokens.size(); ) {
 			String token = tokens.get(tokenPointer);
-		
 			if (token.equalsIgnoreCase(Token.NEXT)) {
 				// increment the data pointer (to point to the next cell
 				// to the
@@ -184,26 +173,24 @@ public class TrollScriptEngine extends BrainfuckEngine {
 		// Clear all data.
 		initate(data.length);
 	}
-
+	
 	/**
-	 * Is the given token a valid <code>TrollScript</code> token.
+	 * Is the given token a valid <code>Ook!</code> token.
 	 * 
 	 * @param token
 	 *            The token to check.
 	 * @return <code>true</code> if the given token is a valid
-	 *         <code>TrollScript</code> token, <code>false</code> otherwise.
+	 *         <code>Ook!</code> token, <code>false</code> otherwise.
 	 */
 	protected boolean isValidToken(String token) {
-		if (token.equalsIgnoreCase(Token.START) || token.equalsIgnoreCase(Token.NEXT)
+		if (token.equalsIgnoreCase(Token.NEXT)
 				|| token.equalsIgnoreCase(Token.PREVIOUS) || token.equalsIgnoreCase(Token.PLUS)
 				|| token.equalsIgnoreCase(Token.MINUS) || token.equalsIgnoreCase(Token.OUTPUT)
 				|| token.equalsIgnoreCase(Token.INPUT)
 				|| token.equalsIgnoreCase(Token.BRACKET_LEFT)
-				|| token.equalsIgnoreCase(Token.BRACKET_RIGHT)
-				|| token.equalsIgnoreCase(Token.END)) {
+				|| token.equalsIgnoreCase(Token.BRACKET_RIGHT)) {
 			return true;
 		}
 		return false;
 	}
-
 }
