@@ -30,5 +30,7 @@ Languages supported.
 
 Comming soon
 ---------------
+* Ook!
+* COW
 * Procedural brainfuck
 * RUM
