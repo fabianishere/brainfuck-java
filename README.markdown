@@ -32,5 +32,6 @@ Comming soon
 ---------------
 * Ook!
 * COW
+* Blub
 * Procedural brainfuck
 * RUM
