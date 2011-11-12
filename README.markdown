@@ -27,10 +27,10 @@ Languages supported.
 ----------------
 * Brainfuck original.
 * TrollScript
+* Ook!
 
 Comming soon
 ---------------
-* Ook!
 * COW
 * Blub
 * Procedural brainfuck
