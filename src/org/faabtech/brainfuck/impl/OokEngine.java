@@ -22,19 +22,39 @@ public class OokEngine extends TrollScriptEngine {
 	 */
 	protected int defaultTokenLength = 9;
 	/**
-	 * The {@link Token} class contains tokens in <code>Ook!</code>.
+	 * The {@link Token} class contains tokens of <code>Ook!</code>.
 	 * 
 	 * @author Fabian M.
 	 */
-	protected static class Token {
-		public final static String NEXT = "Ook. Ook?";
-		public final static String PREVIOUS = "Ook? Ook.";
-		public final static String PLUS = "Ook. Ook.";
-		public final static String MINUS = "Ook! Ook!";
-		public final static String OUTPUT = "Ook! Ook.";
-		public final static String INPUT = "Ook. Ook!";
-		public final static String BRACKET_LEFT = "Ook! Ook?";
-		public final static String BRACKET_RIGHT = "Ook? Ook!";
+	protected static enum Token {
+		NEXT("Ook. Ook?"),
+		PREVIOUS("Ook? Ook."),
+		PLUS("Ook. Ook."),
+		MINUS("Ook! Ook!"),
+		OUTPUT("Ook! Ook."),
+		INPUT("Ook. Ook!"),
+		BRACKET_LEFT("Ook! Ook?"),
+		BRACKET_RIGHT("Ook? Ook!");
+		
+		String value;
+		
+		/**
+		 * Constructs a new token.
+		 * 
+		 * @param value The value of the token.
+		 */
+		Token(String value) {
+			this.value = value;
+		}
+		
+		/**
+		 * Get the value of the token.
+		 * 
+		 * @return the value.
+		 */
+		public String getValue() {
+			return value;
+		}
 	}
 	
 	/**
@@ -83,9 +103,9 @@ public class OokEngine extends TrollScriptEngine {
 	@Override
 	public void interpret(String str) throws Exception {
 		// List with tokens.defaultTokenLenght
-		List<String> tokens = new ArrayList<String>();
-		// It fine that all TrollScript tokens are 3 characters long :)
-		// So we aren't going to loop through all tokens.
+		List<Token> tokens = new ArrayList<Token>();
+		// It fine that all Ook! tokens are 6 characters long :)
+		// So we aren't going to loop through all characters..
 		for (; charPointer < str.length(); ) {
 			String token = "";
 			if (charPointer + defaultTokenLength <= str.length())
@@ -94,103 +114,98 @@ public class OokEngine extends TrollScriptEngine {
 			else
 				token = str.substring(charPointer, charPointer
 						+ (str.length() - charPointer));
-			// Is it a token?
-			if (isValidToken(token)) {
-				tokens.add(token);
-				charPointer += defaultTokenLength;
-			} else if (charPointer + defaultTokenLength > str.length()) {
-				charPointer += (str.length() - charPointer);
-			} else {
-				charPointer++;
+			
+			boolean b = false;
+			
+			for (Token tokenCheck : Token.values()) {
+				if (tokenCheck.getValue().equals(token)) {
+					tokens.add(tokenCheck);
+					charPointer += defaultTokenLength;
+					b = true;
+					break;
+				}
 			}
+			
+			// If the token was invalid, b is false. 
+			if (!b)
+				if (charPointer + defaultTokenLength > str.length()) 
+					charPointer += (str.length() - charPointer);
+				else 
+					charPointer++;
+				
+				
 		} 
 		
 		// Loop through all tokens.
 		for (int tokenPointer = 0; tokenPointer < tokens.size(); ) {
-			String token = tokens.get(tokenPointer);
-			if (token.equalsIgnoreCase(Token.NEXT)) {
+			Token token = tokens.get(tokenPointer);
+			switch(token) {
+			case NEXT:
 				// increment the data pointer (to point to the next cell
 				// to the
 				// right).
 				dataPointer = (dataPointer == data.length - 1 ? 0 : dataPointer + 1);
-			} 
-			if (token.equalsIgnoreCase(Token.PREVIOUS)) {
+				break;
+			case PREVIOUS:
 				// decrement the data pointer (to point to the next cell
 				// to the
 				// left).
 				dataPointer = (dataPointer == 0 ? data.length - 1 : dataPointer - 1);
-			} 
-			if (token.equalsIgnoreCase(Token.PLUS)) {
+				break;
+			case PLUS:
 				// increment (increase by one) the byte at the data
 				// pointer.
 				data[dataPointer]++;
-			} 
-			if (token.equalsIgnoreCase(Token.MINUS)) {
+				break;
+			case MINUS:
 				// decrement (decrease by one) the byte at the data
 				// pointer.
 				data[dataPointer]--;
-			}
-			if (token.equalsIgnoreCase(Token.OUTPUT)) {
+				break;
+			case OUTPUT:
 				// Output the byte at the current index in a character.
 				outWriter.write((char) data[dataPointer]);
-			} 
-			if (token.equalsIgnoreCase(Token.INPUT)) {
+				// Flush the outputstream.
+				outWriter.flush();
+				break;
+			case INPUT:
 				// accept one byte of input, storing its value in the
 				// byte at the data pointer.
 				data[dataPointer] = (byte) consoleReader.read();
-			} 
-			if (token.equalsIgnoreCase(Token.BRACKET_LEFT)) {
+				break;
+			case BRACKET_LEFT:
 				if (data[dataPointer] == 0) {
 					int level = 1;
 					while (level > 0) {	
 						tokenPointer++;
 						
-						if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_LEFT)) 
+						if (tokens.get(tokenPointer).equals(Token.BRACKET_LEFT)) 
 							level++;
-						else if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_RIGHT))
+						else if (tokens.get(tokenPointer).equals(Token.BRACKET_RIGHT))
 							level--;
 					}
 				}
-			}
-			if (token.equalsIgnoreCase(Token.BRACKET_RIGHT)) {
+				break;
+			case BRACKET_RIGHT:
 				if (data[dataPointer] != 0) {
 					int level = 1;
 					while (level > 0) {
 						tokenPointer--;
 						
-						if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_LEFT)) 
+						if (tokens.get(tokenPointer).equals(Token.BRACKET_LEFT)) 
 							level--;
-						else if (tokens.get(tokenPointer).equalsIgnoreCase(Token.BRACKET_RIGHT))
+						else if (tokens.get(tokenPointer).equals(Token.BRACKET_RIGHT))
 							level++;
 					}
 				}
+				break;
 			}
 			
 			tokenPointer++;
 		}
-		// Flush the outputstream.
-		outWriter.flush();
 		// Clear all data.
 		initate(data.length);
 	}
 	
-	/**
-	 * Is the given token a valid <code>Ook!</code> token.
-	 * 
-	 * @param token
-	 *            The token to check.
-	 * @return <code>true</code> if the given token is a valid
-	 *         <code>Ook!</code> token, <code>false</code> otherwise.
-	 */
-	protected boolean isValidToken(String token) {
-		if (token.equalsIgnoreCase(Token.NEXT)
-				|| token.equalsIgnoreCase(Token.PREVIOUS) || token.equalsIgnoreCase(Token.PLUS)
-				|| token.equalsIgnoreCase(Token.MINUS) || token.equalsIgnoreCase(Token.OUTPUT)
-				|| token.equalsIgnoreCase(Token.INPUT)
-				|| token.equalsIgnoreCase(Token.BRACKET_LEFT)
-				|| token.equalsIgnoreCase(Token.BRACKET_RIGHT)) {
-			return true;
-		}
-		return false;
-	}
+
 }

@@ -90,7 +90,7 @@ public class TrollScriptEngine extends BrainfuckEngine {
 		// List with tokens.defaultTokenLenght
 		List<String> tokens = new ArrayList<String>();
 		// It fine that all TrollScript tokens are 3 characters long :)
-		// So we aren't going to loop through all tokens.
+		// So we aren't going to loop through all characters.
 		for (; charPointer < str.length(); ) {
 			String token = "";
 			if (charPointer + defaultTokenLength <= str.length())
@@ -144,6 +144,8 @@ public class TrollScriptEngine extends BrainfuckEngine {
 			if (token.equalsIgnoreCase(Token.OUTPUT)) {
 				// Output the byte at the current index in a character.
 				outWriter.write((char) data[dataPointer]);
+				// Flush the outputstream.
+				outWriter.flush();
 			} 
 			if (token.equalsIgnoreCase(Token.INPUT)) {
 				// accept one byte of input, storing its value in the
@@ -179,8 +181,6 @@ public class TrollScriptEngine extends BrainfuckEngine {
 			
 			tokenPointer++;
 		}
-		// Flush the outputstream.
-		outWriter.flush();
 		// Clear all data.
 		initate(data.length);
 	}
