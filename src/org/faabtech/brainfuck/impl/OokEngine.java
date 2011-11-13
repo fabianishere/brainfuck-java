@@ -108,38 +108,38 @@ public class OokEngine extends TrollScriptEngine {
 		// Loop through all tokens.
 		for (int tokenPointer = 0; tokenPointer < tokens.size(); ) {
 			String token = tokens.get(tokenPointer);
-			if (token.equalsIgnoreCase(Token.NEXT)) {
+			if (token.equals(Token.NEXT)) {
 				// increment the data pointer (to point to the next cell
 				// to the
 				// right).
 				dataPointer = (dataPointer == data.length - 1 ? 0 : dataPointer + 1);
 			} 
-			if (token.equalsIgnoreCase(Token.PREVIOUS)) {
+			if (token.equals(Token.PREVIOUS)) {
 				// decrement the data pointer (to point to the next cell
 				// to the
 				// left).
 				dataPointer = (dataPointer == 0 ? data.length - 1 : dataPointer - 1);
 			} 
-			if (token.equalsIgnoreCase(Token.PLUS)) {
+			if (token.equals(Token.PLUS)) {
 				// increment (increase by one) the byte at the data
 				// pointer.
 				data[dataPointer]++;
 			} 
-			if (token.equalsIgnoreCase(Token.MINUS)) {
+			if (token.equals(Token.MINUS)) {
 				// decrement (decrease by one) the byte at the data
 				// pointer.
 				data[dataPointer]--;
 			}
-			if (token.equalsIgnoreCase(Token.OUTPUT)) {
+			if (token.equals(Token.OUTPUT)) {
 				// Output the byte at the current index in a character.
 				outWriter.write((char) data[dataPointer]);
 			} 
-			if (token.equalsIgnoreCase(Token.INPUT)) {
+			if (token.equals(Token.INPUT)) {
 				// accept one byte of input, storing its value in the
 				// byte at the data pointer.
 				data[dataPointer] = (byte) consoleReader.read();
 			} 
-			if (token.equalsIgnoreCase(Token.BRACKET_LEFT)) {
+			if (token.equals(Token.BRACKET_LEFT)) {
 				if (data[dataPointer] == 0) {
 					int level = 1;
 					while (level > 0) {	
@@ -152,7 +152,7 @@ public class OokEngine extends TrollScriptEngine {
 					}
 				}
 			}
-			if (token.equalsIgnoreCase(Token.BRACKET_RIGHT)) {
+			if (token.equals(Token.BRACKET_RIGHT)) {
 				if (data[dataPointer] != 0) {
 					int level = 1;
 					while (level > 0) {
@@ -183,12 +183,12 @@ public class OokEngine extends TrollScriptEngine {
 	 *         <code>Ook!</code> token, <code>false</code> otherwise.
 	 */
 	protected boolean isValidToken(String token) {
-		if (token.equalsIgnoreCase(Token.NEXT)
-				|| token.equalsIgnoreCase(Token.PREVIOUS) || token.equalsIgnoreCase(Token.PLUS)
-				|| token.equalsIgnoreCase(Token.MINUS) || token.equalsIgnoreCase(Token.OUTPUT)
-				|| token.equalsIgnoreCase(Token.INPUT)
-				|| token.equalsIgnoreCase(Token.BRACKET_LEFT)
-				|| token.equalsIgnoreCase(Token.BRACKET_RIGHT)) {
+		if (token.equals(Token.NEXT)
+				|| token.equals(Token.PREVIOUS) || token.equals(Token.PLUS)
+				|| token.equals(Token.MINUS) || token.equals(Token.OUTPUT)
+				|| token.equals(Token.INPUT)
+				|| token.equals(Token.BRACKET_LEFT)
+				|| token.equals(Token.BRACKET_RIGHT)) {
 			return true;
 		}
 		return false;
