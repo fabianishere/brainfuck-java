@@ -1,11 +1,11 @@
 Brainfuck Java
 ================
-`Brainfuck Java` provides an interpreter for the original `Brainfuck` language and other popular `Brainfuck` dialects 
+Brainfuck Java provides an interpreter for the original Brainfuck language and other popular Brainfuck dialects 
 written in the Java programming language.
 
 Brainfuck
 ---------
-Urban Müller created brainfuck in 1993 with the intention of designing a language which could be implemented with the smallest possible compiler.
+Urban Müller created Brainfuck in 1993 with the intention of designing a language which could be implemented with the smallest possible compiler.
 
 ### Commands
 The eight language commands, each consisting of a single character:

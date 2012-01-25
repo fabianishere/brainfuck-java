@@ -8,7 +8,7 @@ public class TrollScriptTest {
 
 	public static void main(String[] args) throws Exception {
 		new TrollScriptEngine(30000).interpret(new File(
-				"test/hello_world.troll"));
+				"samples/hello_world.troll"));
 	}
 
 }

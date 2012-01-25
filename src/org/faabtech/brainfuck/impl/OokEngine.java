@@ -6,8 +6,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.faabtech.brainfuck.impl.TrollScriptEngine.Token;
-
 /**
  * The {@link OokEngine} is an implementation for the
  * <code>brainfuck<code> dialect
@@ -22,7 +20,7 @@ public class OokEngine extends TrollScriptEngine {
 	 */
 	protected int defaultTokenLength = 9;
 	/**
-	 * The {@link Token} class contains tokens of <code>Ook!</code>.
+	 * The {@link Token} enum contains tokens of <code>Ook!</code>.
 	 * 
 	 * @author Fabian M.
 	 */
@@ -104,7 +102,7 @@ public class OokEngine extends TrollScriptEngine {
 	public void interpret(String str) throws Exception {
 		// List with tokens.defaultTokenLenght
 		List<Token> tokens = new ArrayList<Token>();
-		// It fine that all Ook! tokens are 6 characters long :)
+		// It fine that all Ook! tokens are 9 characters long :)
 		// So we aren't going to loop through all characters..
 		for (; charPointer < str.length(); ) {
 			String token = "";
@@ -139,6 +137,7 @@ public class OokEngine extends TrollScriptEngine {
 		// Loop through all tokens.
 		for (int tokenPointer = 0; tokenPointer < tokens.size(); ) {
 			Token token = tokens.get(tokenPointer);
+			System.out.println(token);
 			switch(token) {
 			case NEXT:
 				// increment the data pointer (to point to the next cell
@@ -164,9 +163,9 @@ public class OokEngine extends TrollScriptEngine {
 				break;
 			case OUTPUT:
 				// Output the byte at the current index in a character.
-				outWriter.write((char) data[dataPointer]);
+				//outWriter.write((char) data[dataPointer]);
 				// Flush the outputstream.
-				outWriter.flush();
+				//outWriter.flush();
 				break;
 			case INPUT:
 				// accept one byte of input, storing its value in the
