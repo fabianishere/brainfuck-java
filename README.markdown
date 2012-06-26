@@ -29,7 +29,7 @@ Languages supported.
 * TrollScript
 * Ook!
 
-Comming soon
+Coming soon
 ---------------
 * COW
 * Blub
