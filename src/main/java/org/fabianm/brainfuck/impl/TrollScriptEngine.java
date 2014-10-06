@@ -25,8 +25,7 @@ import org.fabianm.brainfuck.BrainfuckEngine;
 
 /**
  * The {@link TrollScriptEngine} is an implementation for the
- * <code>brainfuck<code> dialect
- * 	<code>TrollScript</code>.
+ * 	brainfuck derivative TrollScript.
  * 
  * @author Fabian M.
  */
@@ -37,7 +36,7 @@ public class TrollScriptEngine extends BrainfuckEngine {
 	 */
 	protected int defaultTokenLength = 3;
 	/**
-	 * The {@link Token} class contains tokens in <code>TrollScript</code>.
+	 * The {@link Token} class contains tokens in TrollScript.
 	 * 
 	 * @author Fabian M.
 	 */
@@ -201,7 +200,7 @@ public class TrollScriptEngine extends BrainfuckEngine {
 	}
 
 	/**
-	 * Is the given token a valid <code>TrollScript</code> token.
+	 * Is the given token a valid TrollScript token.
 	 * 
 	 * @param token
 	 *            The token to check.

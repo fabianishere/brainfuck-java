@@ -24,7 +24,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * The {@link BrainfuckEngine} class is an implementation of the original <code>brainfuck</code>
+ * The {@link BrainfuckEngine} class is an implementation of the original brainfuck
  * 	language.
  * 
  * @author Fabian M.
@@ -32,7 +32,7 @@ import java.io.PrintStream;
 public class BrainfuckEngine {
 	
 	/**
-	 * The memory thats available for this <code>brainfuck</code> program.
+	 * The memory thats available for this brainfuck program.
 	 */
 	protected byte[] data;
 
@@ -73,7 +73,7 @@ public class BrainfuckEngine {
 	protected int columnCount = 0;
 	
 	/**
-	 * The {@link Token} class contains tokens in <code>brainfuck</code>.
+	 * The {@link Token} class contains tokens in brainfuck.
 	 * 
 	 * @author Fabian M.
 	 */
@@ -103,8 +103,7 @@ public class BrainfuckEngine {
 	 * Constructs a new {@link BrainfuckEngine} instance.
 	 * 
 	 * @param cells
-	 *            The amount of mem
-		interpret(content);ory cells.
+	 *            The amount of memory cells.
 	 * @param out The outputstream of this program.
 	 */
 	public BrainfuckEngine(int cells, OutputStream out) {

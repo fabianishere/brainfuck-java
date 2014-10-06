@@ -23,8 +23,7 @@ import java.util.List;
 
 /**
  * The {@link OokEngine} is an implementation for the
- * <code>brainfuck<code> dialect
- * 	<code>Ook!</code>.
+ * 	brainfuck derivative Ook!.
  * 
  * @author Fabian M.
  */
@@ -35,7 +34,7 @@ public class OokEngine extends TrollScriptEngine {
 	 */
 	protected int defaultTokenLength = 9;
 	/**
-	 * The {@link Token} enum contains tokens of <code>Ook!</code>.
+	 * The {@link Token} enum contains tokens of Ook!.
 	 * 
 	 * @author Fabian M.
 	 */
