@@ -1,6 +1,6 @@
 brainfuck-java
 ================
-Interpreter for the original Brainfuck languages and Brainfuck derivatives written in Java.
+Interpreter for the original Brainfuck language and Brainfuck derivatives written in Java.
 
 ## Languages supported
 * Brainfuck
