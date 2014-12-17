@@ -30,7 +30,7 @@ import java.io.PrintStream;
  * @author Fabian M.
  */
 public class BrainfuckEngine {
-	
+
 	/**
 	 * The memory thats available for this brainfuck program.
 	 */
@@ -61,7 +61,7 @@ public class BrainfuckEngine {
 	 * The {@link BrainfuckEngine#outWriter} allows us to write to the console.
 	 */
 	protected OutputStream outWriter;
-	
+
 	/**
 	 * The current line the engine is at.
 	 */
@@ -71,14 +71,13 @@ public class BrainfuckEngine {
 	 * The current column the engine is at. 
 	 */
 	protected int columnCount = 0;
-	
+
 	/**
 	 * The {@link Token} class contains tokens in brainfuck.
 	 * 
 	 * @author Fabian M.
 	 */
 	protected static class Token {
-		
 		public final static char NEXT = '>';
 		public final static char PREVIOUS = '<';
 		public final static char PLUS = '+';
@@ -133,7 +132,6 @@ public class BrainfuckEngine {
 		charPointer = 0;
 	}
 
-
 	/**
 	 * Interprets the given file.
 	 * 
@@ -148,12 +146,9 @@ public class BrainfuckEngine {
 		while((line = fileReader.readLine()) != null) {
 			content += line;
 			lineCount++;
-
 		}
-
 		interpret(content);
 	}
-
 
 	/**
 	 * Interprets the given string.
@@ -167,7 +162,7 @@ public class BrainfuckEngine {
 			interpret(str.charAt(charPointer), str.toCharArray());
 		initate(data.length);
 	}
-	
+
 	/**
 	 * Interprets the given char
 	 * 
@@ -178,8 +173,7 @@ public class BrainfuckEngine {
 	protected void interpret(char c, char[] chars) throws Exception {
 		switch (c) {
 		case Token.NEXT:
-			// increment the data pointer (to point to the next cell to the
-			// right).
+			// Increment the data pointer (to point to the next cell to the right).
 			if ((dataPointer + 1) > data.length) {
 				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "data pointer (" + dataPointer
@@ -188,8 +182,7 @@ public class BrainfuckEngine {
 			dataPointer++;
 			break;
 		case Token.PREVIOUS:
-			// decrement the data pointer (to point to the next cell to the
-			// left).
+			// Decrement the data pointer (to point to the next cell to the left).
 			if ((dataPointer - 1) < 0) {
 				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "data pointer (" + dataPointer
@@ -198,18 +191,17 @@ public class BrainfuckEngine {
 			dataPointer--;
 			break;
 		case Token.PLUS:
-
-			// increment (increase by one) the byte at the data pointer.
-			if ((((int) data[dataPointer]) + 1) > Integer.MAX_VALUE) {
+			// Increment (increase by one) the byte at the data pointer.
+			/*if ((((int) data[dataPointer]) + 1) > Integer.MAX_VALUE) {
 				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "byte value at data pointer ("
 						+ dataPointer + ") " + " on postion " + charPointer
 						+ " higher than byte max value.");
-			}
+			}*/
 			data[dataPointer]++;
 			break;
 		case Token.MINUS:
-			// decrement (decrease by one) the byte at the data pointer.
+			// Decrement (decrease by one) the byte at the data pointer.
 			/*if ((data[dataPointer] - 1) < 0) {
 				throw new Exception("Error on line " + lineCount + ", column " + columnCount + ":" 
 						+ "at data pointer " + dataPointer
@@ -223,7 +215,7 @@ public class BrainfuckEngine {
 			outWriter.write((char) data[dataPointer]);
 			break;
 		case Token.INPUT:
-			// accept one byte of input, storing its value in the byte at the data pointer.
+			// Accept one byte of input, storing its value in the byte at the data pointer.
 			data[dataPointer] = (byte) consoleReader.read();
 			break;
 		case Token.BRACKET_LEFT:
@@ -253,4 +245,3 @@ public class BrainfuckEngine {
 		columnCount++;
 	}
 }
-
